@@ -81,8 +81,12 @@ nav {
 }
 .filmblock {
     display: flex;
-    min-width: 5rem;
-    max-width: 5rem;
+    gap: 2px;
+    min-width: 10rem;
+    max-width: 10rem;
+    max-height: 16.9rem;
+    min-height: 16.9rem;
+    border: 1px solid black;
     padding: auto;
     word-wrap:normal;
 }

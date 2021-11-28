@@ -1,6 +1,6 @@
 const navSlide = () => {
   const burger = document.querySelector('.burger');
-  const search = document.querySelector('.searchbar');
+  const search = document.querySelector('.search');
   const nav = document.querySelector('.nav-links');
   const navLinks = document.querySelectorAll('.nav-links li');
 
@@ -17,54 +17,86 @@ const navSlide = () => {
   });
 };
 navSlide();
-let page = 0;
-async function displayMovieLogs(json) {
-  if (page < 0) page = 0
-  if (page > json.length/20) page = json.length/20
-  const slice = json.data.slice(20 * page, 20 * (page + 1));
-  const result = document.querySelector('.results');
-  slice.forEach((movie) => {
-    result.innerHTML += `<li class="filmblock">
-    ${movie.name}
-    </br>${movie.year}
-    </br>${movie.score}
-    </li>`;
-  });
-  console.log('display', slice);
-}
-
-async function logMovies() {
-  const request = '/api/movies';
-  const data = await fetch(request, {
+async function moviesReq() {
+  const searchinput = document.querySelector('.search');
+  let page = 0;
+  const allData = await fetch('/api/movies', {
     headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
   });
-  const json = await data.json();
-  console.log(json);
-  await displayMovieLogs(json);
-}
-async function moviesReq() {
-  const jsonReq = document.querySelector('.jsonreq');
-  jsonReq.addEventListener('click', logMovies);
-}
-window.onload = moviesReq;
-const result = document.querySelector('.results');
-const submit = document.querySelector('.submit');
-const next = document.querySelector('.next');
-const prev = document.querySelector('.prev');
-next.addEventListener('click', () => {
-  page++;
-  result.innerHTML = '';
-  logMovies();
-});
+  logData = await allData.json();
+  let filterData = logData
+  async function displayMovieLogs(list) {
+    if (page < 0) page = 0;
+    if (page > list.length / 50) page = list.length / 50 - 1;
+    const slice = list.slice(50 * page, 50 * (page + 1));
+    const result = document.querySelector('.results');
+    slice.forEach((movie) => {
+      result.innerHTML += `<li class="filmblock">
+      ${movie.name}
+      </br>${movie.year}
+      </br>${movie.score}
+      </li>`;
+    });
+    console.log('display', slice);
+  }
 
-prev.addEventListener('click', () => {
-  page--;
-  result.innerHTML = '';
-  logMovies();
-});
-submit.addEventListener('click', () => {
-  console.log('hi');
-  let currenthtml = result.innerHTML;
-  currenthtml += '<div class="poster"><img src ="https://xl.movieposterdb.com/12_04/2012/948470/xl_948470_406a814a.jpg"></div>';
-  result.innerHTML = currenthtml;
-});
+  // console logs all records and displays
+ 
+
+  const result = document.querySelector('.results');
+  const submit = document.querySelector('.submit');
+  const next = document.querySelector('.next');
+  const prev = document.querySelector('.prev');
+  next.addEventListener('click', () => {
+    page++;
+    result.innerHTML = '';
+    displayMovieLogs(filterData)
+  });
+
+  prev.addEventListener('click', (evt) => {
+    page--;
+    result.innerHTML = '';
+    displayMovieLogs(filterData);
+  });
+ 
+
+  function findMatches(wordToMatch, array) {
+    if (!wordToMatch) {
+      result.innerHTML = '';
+    }
+    const tempData = logData.data;
+    return tempData.filter((search) => {
+      const regex = new RegExp(wordToMatch, 'gi');
+      return (search.name.match(regex));
+    });
+  }
+
+  function displayMatches(event) {
+    console.log(event.value);
+    const matchArray = findMatches(event.target.value, logData.data);
+    filterData = matchArray
+    console.log(matchArray)
+    let html = ''
+    matchArray.forEach((movie) => {
+      html += `<li class="filmblock">${movie.name}</li>`
+    })
+    result.innerHTML = html
+  }
+  function funclogData() {
+    console.log('logData', logData);
+  }
+  searchinput.addEventListener('change', displayMatches);
+  searchinput.addEventListener('keyup', (evt) => {
+    if (searchinput.value === '' || searchinput.value === undefined){
+      result.innerHTML = ''
+    }
+    else {
+      displayMatches(evt)
+    }
+  })
+  submit.addEventListener('click', () => {
+    displayMatches(evt)
+  });
+}
+
+window.onload = moviesReq;
