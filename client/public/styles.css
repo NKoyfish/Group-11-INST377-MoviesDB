@@ -31,6 +31,37 @@ h2 {
     justify-content: center;
 }
 
+.paragraph{
+    font-weight: bold;
+    font-size: 20pt;
+    color: whitesmoke;
+    width: 60%;
+    display: flex;
+    text-align: center;
+    margin-left: 14rem;
+}
+
+.pineapple {
+    width: 40%;
+    position: absolute;
+    left: 59%;
+    top: 27rem;
+}
+
+.pit {
+    font-weight: bold;
+    font-size: 20pt;
+    color: whitesmoke;
+    width: 50%;
+    text-align: center;
+    margin-right: 39rem;
+    margin-top: 23rem;
+}
+
+.warp {
+    display: flex;
+}
+
 ul {
     z-index: 10;
 }
