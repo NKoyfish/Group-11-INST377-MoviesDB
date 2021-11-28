@@ -117,9 +117,11 @@ nav {
     max-width: 10rem;
     max-height: 16.9rem;
     min-height: 16.9rem;
-    border: 1px solid black;
-    padding: auto;
+    border: 5px solid rgb(25, 45, 112);
+    text-align: center;
+    width: 100%;
     word-wrap:normal;
+    cursor: pointer;
 }
 .columns {
     margin-top: 2vh;
@@ -151,16 +153,21 @@ nav {
     height: 900px;
 }
 .results {
+    gap: 10px;
+    color: white;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: row;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-color: #958a56;
+    background-color: #161541;
     border-radius: 5px;
+    border: 10px solid slateblue;
     height:calc(fit-content*2);
     width: 90%;
+    margin-top: 2rem;
 }
 .results::-webkit-scrollbar {
     display: none;
@@ -195,7 +202,6 @@ nav {
 .remainingsection {
    background-color: black;
    min-width: 100%;
-   background-image: ;
    min-height: 40%;
 }
 .searchbar {
@@ -218,16 +224,16 @@ nav {
     min-width: 300px;
     border-radius: 15px 0px 0px 15px;
 }
-.next{
+.listNav{
     display: flex;
-    background-color: white;
-    cursor: pointer;
+    position: absolute;
+    justify-content: center;
+    height: fit-content;
+    gap: 35vh;
 }
-.prev{
-    display: flex;
-    background-color: white;
-    cursor: pointer;
-}
+
+
+
 @media screen and (max-width: 1024px) {
     .webtitle {
         font-size: 15pt;
