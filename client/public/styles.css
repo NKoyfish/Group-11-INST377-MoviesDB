@@ -123,6 +123,11 @@ nav {
     word-wrap:normal;
     cursor: pointer;
 }
+.filmblock a {
+    align-self: flex-end;
+    color:white;
+    width: 100%;
+}
 .columns {
     margin-top: 2vh;
     padding-left: 10vh;
@@ -137,7 +142,7 @@ nav {
     color: orangered;
 }
 .column {
-    font-size: 30pt;
+    font-size: clamp(1vh, -0.875rem + 8.333vw,1.5rem);
     min-width: 22%;
     color: white;
     background-color: darkslategray;
