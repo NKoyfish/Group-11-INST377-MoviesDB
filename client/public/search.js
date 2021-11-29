@@ -12,10 +12,8 @@ async function moviesReq() {
     const slice = list.slice(50 * page, 50 * (page + 1));
     const result = document.querySelector('.results');
     slice.forEach((movie) => {
-      result.innerHTML += `<li class="filmblock">
-        ${movie.name}
-        </br>${movie.year}
-        </br>${movie.score}
+      result.innerHTML += `<li class="filmblock"><a>
+        ${movie.name} (${movie.year})</a>
         </li>`;
     });
     console.log('display', slice);
@@ -56,14 +54,10 @@ async function moviesReq() {
     filterData = matchArray;
     displayMovieLogs(filterData)
   }
-  searchinput.addEventListener('change', displayMatches);
+ 
   searchinput.addEventListener('keyup', (evt) => {
-    result.innerHTML = ''  
+    result.innerHTML = '';
     displayMatches(evt);})
-  submit.addEventListener('click', () => {
-      result.innerHTML = ''
-    displayMatches(evt);
-  });
 }
 
 window.onload = moviesReq;
