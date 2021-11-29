@@ -298,5 +298,25 @@ nav {
 .buttons {
     display: flex;
     justify-content: space-around;
+    width: 100%;
 }
 
+.touch {
+    flex-direction: column;
+    width: 10%;
+}
+
+.touch2 {
+    flex-direction: column;
+    width: 10%;
+}
+
+.touch3 {
+    flex-direction: column;
+    width: 10%;
+}
+
+.touch4 {
+    flex-direction: column;
+    width: 10%;
+}
