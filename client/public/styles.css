@@ -247,7 +247,9 @@ nav {
     gap: 35vh;
 }
 
-
+.hide {
+    display: none;
+}
 
 @media screen and (max-width: 1024px) {
     .webtitle {
@@ -302,7 +304,7 @@ nav {
         transform: translateX(0%);
     }
     .hide {
-        opacity: 0;
+        display: none;
     }
 }
 @keyframes navLinkFade {
