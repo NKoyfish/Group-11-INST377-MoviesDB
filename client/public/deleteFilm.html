@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="styles.css">
-    <title>Group 11 Movies Database</title>
+    <title>Deleting a Genre</title>
 </head>
-
 <body>
     <nav>
         <div class="webtitle">Movies Database Group 11
@@ -22,7 +19,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="categories.html">Categories</a></li>
             <li><a href="favorites.html">Favorites</a></li>
-            <li><a href="addcontent.html">Edit Content</a></li>
+            <li><a href="addfilm.html">Edit Content</a></li>
             <li><a href="about.html">About</a></li>
         </ul>
         <div class="burger">
@@ -31,24 +28,23 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <div class="title">Search</div>
-    <div class="searchbar">
-       <!--  <div style ="color:red" class="tempsearch">
-            THIS IS A TEMP WIKIPEDIA SEARCH
-            <input class ="titlesearch"><button class="titlesubmit">Search</button>
-            <input class ="mysql"><button class="titlesubmit">mysql</button>
-        </div> -->
-        <input class="search"><button class="submit">Search</button>
+    <h1>Delete Genre</h1>
+    <div class="formContainer">
+        <form action="/api/genre" method="delete">
+            <div class="field">
+                <label for="name" class="label">Genre</label>
+                    <div class="control">
+                        <input name="name" class="input" type="text" placeholder="Genre">
+                    </div>
+                </div>
+                
+        </form>
+        <div class="control">
+            <button class="submitbutton">Submit</button>
+        </div> 
     </div>
-    <div class= "resultcontainer">
-        <div class="results" style="min-width: 500px;"></div>
-        <div class="listNav">
-            <button id="prev" class="prev submit">Prev</button>
-            <button class="next submit">Next</button>
-        </div>
-    </div>
+    
     <script src="script.js"></script>
-    <script src = "search.js"></script>
+    <script src="deleteGenre.js"></script>
 </body>
-
 </html>
