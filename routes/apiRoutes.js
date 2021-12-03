@@ -37,23 +37,10 @@ router.route('/movies/:filmId')
     try {
       const {filmId} = req.params;
       const filmlist = await db.Film.findOne({where: {film_id: `${filmId}`}});
-
-      if (filmlist !== null) { res.send(filmlist); }
-    } catch (error) {
+      res.json({data: filmlist})
+    }catch (error) {
       console.error(error);
       res.send("Something went wrong on /movies end or the film_id isn't valid");
-    }
-  })
-  .post(async (req, res) => {
-    try {
-      const {filmId} = req.params;
-      const filmlist = await db.Film.create({
-        film_id: `${filmId}`, name: 'Test Film', director_id: 69, writer_id: 69, genre_id: 16, country: 'USA', runtime: 420, year: 1969, studio_id: 1, score: 6.9, votes: 69, budget: 69696969, released: '1969-12-12', actor_id: 69, rating: 'R'
-      });
-      res.send('Very Immature Film added');
-    } catch (error) {
-      console.error(error);
-      res.send('Something went wrong on /movies end');
     }
   })
   .delete(async (req, res) => {

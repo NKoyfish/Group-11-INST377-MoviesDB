@@ -97,6 +97,10 @@ nav {
     list-style-type: none;
     row-gap: 100px;
 }
+
+#prev {
+    border-radius: 15px 0px 0px 15px;
+}
 .nav-links a:hover{
     list-style-type: none;
     color: lightblue;
@@ -129,25 +133,28 @@ nav {
     width: 100%;
 }
 .columns {
+    align-self: center;
+    min-width: 200px;
     margin-top: 2vh;
-    padding-left: 10vh;
-    padding-right: 10vh;
+    width: 100%;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    gap: 2rem;
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-evenly
 }
-.jsonreq {
-    color: orangered;
-}
+
 .column {
-    font-size: clamp(1vh, -0.875rem + 8.333vw,1.5rem);
-    min-width: 22%;
+    font-size: 25px;
+    min-width:max-content;
+    max-width: 25%;
     color: white;
     background-color: darkslategray;
     border-radius: 15px;
     cursor: pointer;
+    
 }
 .resultcontainer {
     display: flex;
@@ -214,6 +221,9 @@ nav {
     display: flex;
     justify-content: center;
 }
+.button.is-link{
+    width: 100%
+}
 .submit {
     display: flex;
     padding-right: 1vh;
@@ -246,12 +256,24 @@ nav {
     .nav-links{
         width: 100%;
     }
-    
+    .touch, .touch2,.touch3,.touch4 {
+        min-width: 200px;
+    }
+    .column {
+        min-width: 200px;
+        max-width: 25%;
+    }
 }
 
 @media screen and (max-width: 768px) {
     body {
         overflow-x: hidden;
+    }
+    .touch, .touch2,.touch3,.touch4 {
+        min-width: 200px;
+    }
+    .column {
+        width: 100%;
     }
     .nav-links{
         position: absolute;
@@ -296,27 +318,38 @@ nav {
 }
 
 .buttons {
+    align-items: flex-start;
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
 
 .touch {
+    position: relative;
+    margin-top: 0px;
     flex-direction: column;
     width: 10%;
+    min-width: 200px;
 }
 
 .touch2 {
     flex-direction: column;
     width: 10%;
+    min-width: 200px;
 }
 
 .touch3 {
     flex-direction: column;
     width: 10%;
+    min-width: 200px;
 }
 
 .touch4 {
     flex-direction: column;
     width: 10%;
+    min-width: 200px;
+}
+.buttons.are-large{
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
