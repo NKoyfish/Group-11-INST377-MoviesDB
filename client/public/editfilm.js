@@ -35,51 +35,94 @@ async function editFilmLoad() {
     factor,
     frating
   ];
-  async function populateForm(list, ) {}
+  async function populateForm(list, id, name,
+    director,
+    writer,
+    genre,
+    country,
+    runtime,
+    year,
+    studio,
+    score,
+    votes,
+    budget,
+    fross,
+    released,
+    actor,
+    rating) {
+    valueList = [
+      null,
+      name,
+      director,
+      writer,
+      genre,
+      country,
+      runtime,
+      year,
+      studio,
+      score,
+      votes,
+      budget,
+      fross,
+      released,
+      actor,
+      rating];
+    let count = 1;
+    list.forEach((elm) => {
+      elm.value = valueList[count];
+      count++;
+    });
+  }
+
   async function loadForm(evt) {
     try {
-      const response = await fetch(`/api/movies/${id.value}`);
-      const json = await response.json();
-      const { data } = json;
-      if (data) {
-        lookup.innerHTML = 'Look Up Other';
-        editform.classList.remove('hide');
-        const {
-          filmid,
-          name,
-          director,
-          writer,
-          genre,
-          country,
-          runtime,
-          year,
-          studio,
-          score,
-          votes,
-          budget,
-          fross,
-          released,
-          actor,
-          rating
-        } = { data };
-        await populateForm(list,null,
-          name,
-          director,
-          writer,
-          genre,
-          country,
-          runtime,
-          year,
-          studio,
-          score,
-          votes,
-          budget,
-          fross,
-          released,
-          actor,
-          rating);
+      if (id.value != null && id.value.length !== 0) {
+        const response = await fetch(`/api/movies/${id.value}`);
+        const json = await response.json();
+        const { data } = json;
+        if (data) {
+          lookup.innerHTML = 'Look Up Other';
+          editform.classList.remove('hide');
+          const {
+            filmid,
+            name,
+            director,
+            writer,
+            genre,
+            country,
+            runtime,
+            year,
+            studio,
+            score,
+            votes,
+            budget,
+            fross,
+            released,
+            actor,
+            rating
+          } = { data };
+          await populateForm(list, null,
+            name,
+            director,
+            writer,
+            genre,
+            country,
+            runtime,
+            year,
+            studio,
+            score,
+            votes,
+            budget,
+            fross,
+            released,
+            actor,
+            rating);
+
+          console.log(data);
+        } else {
+          console.log('empty');
+        }
       }
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
