@@ -25,8 +25,44 @@ router.route('/movies')
   .post(async (req, res) => {
     try {
       console.log(req.body.name);
-      res.send('d');
+      let message = 'Post Recieved \n'
+      const filmId = parseFloat(req.body.filmid);
+      //console.log(filmId);
+      const filmUpdate = await db.Film.findOne({where: {film_id: `${filmId}`}});
+      try {
+        let score = parseFloat(req.body['score'])
+        let runtime = parseInt(req.body['runtime'])
+        let genre = parseInt(req.body['genre'])
+        let writer= parseInt(req.body['writer'])
+        let budget = parseInt(req.body['budget'])
+        let gross = parseInt(req.body['gross'])
+        let actor = parseInt(req.body['actor'])
+        let studio = parseInt(req.body['studio'])
+        let year = parseInt(req.body['year'])
+        let director = parseInt(req.body['director'])
+
+        filmUpdate.score = score
+        filmUpdate.runtime = runtime
+        filmUpdate.genre = genre
+        filmUpdate.writer = writer
+        filmUpdate.budget = budget
+        filmUpdate.gross = gross
+        filmUpdate.actor = actor
+        filmUpdate.studio = studio
+        filmUpdate.year = year
+        filmUpdate.director = director
+        filmUpdate.name = req.body['name']
+        filmUpdate.rating = req.body['rating']
+        filmUpdate.country = req.body['country']
+        filmUpdate.save()
+        message += (`${req.body['name']} was updated successfully with new input`)
+      } catch (err) {
+        message += ('Some form input was not playing nice')
+        console.log('weird parse error?')
+      }
+      res.send(message)
     } catch (error) {
+      
       console.error(error);
       res.send('Something went wrong on /movies end');
     }
@@ -37,8 +73,8 @@ router.route('/movies/:filmId')
     try {
       const {filmId} = req.params;
       const filmlist = await db.Film.findOne({where: {film_id: `${filmId}`}});
-      res.json({data: filmlist})
-    }catch (error) {
+      res.json({data: filmlist});
+    } catch (error) {
       console.error(error);
       res.send("Something went wrong on /movies end or the film_id isn't valid");
     }

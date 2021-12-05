@@ -3,74 +3,73 @@ async function editFilmLoad() {
   const lookup = document.querySelector('#lookup');
   const id = document.querySelector('#id');
   const editform = document.querySelector('#editform');
-  const fname = document.querySelector('#title');
-  const fgenre = document.querySelector('#genre');
-  const fscore = document.querySelector('#score');
-  const fwriter = document.querySelector('#writer');
-  const fdirector = document.querySelector('#director');
-  const fyear = document.querySelector('#year');
-  const fcountry = document.querySelector('#country');
-  const fstudio = document.querySelector('#studio');
-  const fgross = document.querySelector('#gross');
-  const fbudget = document.querySelector('#budget');
-  const freleased = document.querySelector('#released');
-  const fvotes = document.querySelector('#votes');
-  const fruntime = document.querySelector('#runtime');
-  const factor = document.querySelector('#actor');
-  const frating = document.querySelector('#rating');
-  list = [
-    fname,
-    fgenre,
-    fscore,
-    fwriter,
-    fdirector,
-    fyear,
-    fcountry,
-    fstudio,
-    fgross,
-    fbudget,
-    freleased,
-    fvotes,
-    fruntime,
-    factor,
-    frating
-  ];
-  async function populateForm(list, id, name,
-    director,
-    writer,
-    genre,
-    country,
-    runtime,
-    year,
-    studio,
-    score,
-    votes,
-    budget,
-    fross,
-    released,
-    actor,
-    rating) {
-    valueList = [
-      null,
+  const form = document.querySelector('#form');
+  const submit = document.querySelector('#submit');
+
+  async function populateForm(data) {
+    // console.log(data.data)
+    const film_id = document.querySelector('#filmid');
+    const name = document.querySelector('#title');
+    const director_id = document.querySelector('#director');
+    const writer_id = document.querySelector('#writer');
+    const genre_id = document.querySelector('#genre');
+    const score = document.querySelector('#score');
+    const votes = document.querySelector('#votes');
+    const year = document.querySelector('#year');
+    const country = document.querySelector('#country');
+    const studio_id = document.querySelector('#studio');
+    const gross = document.querySelector('#gross');
+    const budget = document.querySelector('#budget');
+    const released = document.querySelector('#released');
+    const runtime = document.querySelector('#runtime');
+    const actor_id = document.querySelector('#actor');
+    const rating = document.querySelector('#rating');
+    list = [
+      film_id,
       name,
-      director,
-      writer,
-      genre,
+      director_id,
+      writer_id,
+      genre_id,
       country,
       runtime,
       year,
-      studio,
+      studio_id,
       score,
       votes,
       budget,
-      fross,
+      gross,
       released,
-      actor,
-      rating];
-    let count = 1;
-    list.forEach((elm) => {
-      elm.value = valueList[count];
+      actor_id,
+      rating
+    ];
+    count = 0;
+    Object.keys(data.data).forEach((elm) => {
+      // console.log(elm, data.data[elm])
+      field = data.data[elm];
+      // weird form interaction NaN
+      if (['name', 'released', 'country', 'rating'].includes(elm)) {
+        // console.log(elm, count, field)
+        newField = String(field);
+        list[count].value = newField;
+      }
+      try {
+        newField = parseFloat(field);
+        field = newField;
+      } catch (err) {
+        list[count].value = field;
+      }
+      list[count].value = field;
+
       count++;
+    });
+    // bug here have to regularly do this instead of using loops
+    name.value = data.data.name;
+    rating.value = data.data.rating;
+    country.value = data.data.country;
+
+    submit.addEventListener('click', () => {
+      console.log('hello');
+      const formobj = formToObject(form);
     });
   }
 
@@ -83,44 +82,16 @@ async function editFilmLoad() {
         if (data) {
           lookup.innerHTML = 'Look Up Other';
           editform.classList.remove('hide');
-          const {
-            filmid,
-            name,
-            director,
-            writer,
-            genre,
-            country,
-            runtime,
-            year,
-            studio,
-            score,
-            votes,
-            budget,
-            fross,
-            released,
-            actor,
-            rating
-          } = { data };
-          await populateForm(list, null,
-            name,
-            director,
-            writer,
-            genre,
-            country,
-            runtime,
-            year,
-            studio,
-            score,
-            votes,
-            budget,
-            fross,
-            released,
-            actor,
-            rating);
 
-          console.log(data);
+          await populateForm(json);
+
+          // console.log(data);
         } else {
           console.log('empty');
+          // hide the form if the movie DNE
+          editform.classList.add('hide');
+          alert('ID not valid Search Again');
+          lookup.innerHTML = 'Not Found';
         }
       }
     } catch (err) {

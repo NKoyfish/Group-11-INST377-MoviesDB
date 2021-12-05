@@ -75,7 +75,8 @@ async function moviesReq() {
     const result = document.querySelector('.results');
     if (list) {
       if (page < 0) page = 0;
-      if (page > list.length / 50) page = list.length / 50 - 1;
+      if (page > list.length / 50) page = Math.ceil(list.length / 50) - 1;
+      
       const slice = list.slice(50 * page, 50 * (page + 1));
       slice.forEach((movie) => {
         result.innerHTML += `<li id="${movie.film_id}"class="filmblock"><a>
@@ -117,7 +118,7 @@ async function moviesReq() {
   }
 
   function displayMatches(event) {
-    console.log(event.value);
+    //console.log(event.value);
     const matchArray = findMatches(event.target.value, logData.data);
     filterData = matchArray;
     displayMovieLogs(filterData);
