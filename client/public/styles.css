@@ -61,7 +61,12 @@ h2 {
 .warp {
     display: flex;
 }
-
+.righttext {
+    float: right;
+}
+.lefttext {
+    float: left;
+}
 ul {
     z-index: 10;
 }
@@ -145,7 +150,14 @@ nav {
     flex-direction: row;
     justify-content: space-evenly
 }
+a {
+    color:white;
+    cursor:default;
 
+}
+a:hover {
+    color:white
+}
 .column {
     font-size: 25px;
     min-width:max-content;
@@ -250,7 +262,74 @@ nav {
 .hide {
     display: none;
 }
+  
+.moviestatlist {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.posterbackframe {
+    align-items: center;
+    width: 40%;
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 1rem;
+}
+.posterframe {
+    width: 800px; 
+    height:  1352px;
+    background-color: rgb(124, 62, 62);
+}
+@media screen and (max-width: 1520px) {
+    .posterframe {
+        width: 550px; 
+        height:  950px;
+        background-color: rgb(124, 62, 62);
+    }
+    .infobox {
+        width: 20%;
+    }
+}
+@media screen and (max-width: 1720px) {
+    .infobox {
+        width: 20%;
+    }
+    .posterframe {
+        width: 600px; 
+        height:  1020px;
+        background-color: rgb(124, 62, 62);
+    }
+}
 
+.posterframe img {
+    width: 100%;
+    height: auto;
+}
+#back {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    right: 0%;
+}
+li {
+    list-style-type: none;
+}
+.desc {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+}
+.infobox {
+    width: 60%;
+    min-width: 350px;
+    flex-wrap: wrap;
+    flex-flow: column;
+    margin-top: 2rem;
+
+}
+.infobox li:nth-child(odd) {
+    background-color: cadetblue;
+}
 @media screen and (max-width: 1024px) {
     .webtitle {
         font-size: 15pt;
@@ -265,6 +344,11 @@ nav {
         min-width: 200px;
         max-width: 25%;
     }
+.posterframe {
+    width: 200px; 
+    height:  340px;
+    background-color: rgb(124, 62, 62);
+}
 }
 
 @media screen and (max-width: 768px) {
@@ -354,4 +438,7 @@ nav {
 .buttons.are-large{
     padding-left: 2rem;
     padding-right: 2rem;
+}
+.button {
+    min-width:min-content;
 }

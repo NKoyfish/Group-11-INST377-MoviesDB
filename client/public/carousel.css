@@ -1,0 +1,84 @@
+.carousel {
+    overflow:hidden;
+    max-width: 300px;
+    position: relative;
+    justify-content: center;
+  }
+  
+  .carousel .carousel__item,
+  .carousel .carousel__item--hidden {
+    display: none;
+  }
+  
+  .carousel .carousel__item img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+  
+  .carousel .carousel__item--visible {
+    display: block;
+  }
+  .photo-grid-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .photo-grid {
+    width: 900px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;  /* <--- Really freaking cool! */
+    align-items: center;
+  }
+  
+  .photo-grid-item {
+    border: 1px solid #fff;
+    width: 300px;
+    height: 300px;
+  }
+  .first-item {
+    order: 1;
+  }
+  
+  .last-item {
+    order: -1;
+  }
+  
+  .lastClick {
+    z-index: 1;
+    font-weight: bold;
+  }
+  
+  .carousel__button--prev {
+    
+    width: 40px;
+    text-align: center;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-style: bold;
+  }
+  .carousel__button--next {
+   
+    display: flex;
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-style: bold;
+    border: none;
+    border-radius: 5px;
+  }
+  .column {
+      text-align: center;
+  }
+  .container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }

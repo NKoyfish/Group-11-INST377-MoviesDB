@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,9 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="styles.css">
-    <title>Group 11 Movies Database</title>
-    
+    <link rel="stylesheet" href="carousel.css" <title>Group 11 Movies Database</title>
+
 </head>
+
 <body>
     <nav>
         <div class="webtitle">Movies Database Group 11
@@ -29,14 +31,79 @@
             <div class="line3"></div>
         </div>
     </nav>
-    
+
     <h1>Categories</h1>
-    <div class="columns">
+    <div class="container">
+        <div class='photo-grid'>
+            <button class="prev" id="carousel__button--prev" aria-label="Prev slide">Prev</button>
+            <div class='carousel'>
+                <div class='carousel__item carousel__item--visible'>
+                    <div class="column">Action</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Adventure</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Animation</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Biography</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Comedy</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Crime</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Drama</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Horror</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Family</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Fantasy</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Musical</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Mystery</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Romance</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Sci-Fi</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Suspense</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Romance</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Thriller</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">War</div>
+                </div>
+                <div class='carousel__item'>
+                    <div class="column">Western</div>
+                </div>
+            </div>
+            <button class="next" id="carousel__button--next" aria-label="Next slide">Next</button>
+        </div>
+    </div>
+    <!-- <div class="columns">
         <div class="column">Action</div>
         <div class="column">Adventure</div>
         <div class="column">Animation</div>
         <div class="column">Biography</div>
-        <div class="column">Comedy</div>
+        
         <div class="column">Crime</div>
         <div class="column">Drama</div>
         <div class="column">Horror</div>
@@ -50,7 +117,9 @@
         <div class="column">Thriller</div>
         <div class="column">War</div>
         <div class="column">Western</div>
-    </div>
+    </div> -->
     <script src="script.js"></script>
+    <script src="carousel.js"></script>
 </body>
+
 </html>

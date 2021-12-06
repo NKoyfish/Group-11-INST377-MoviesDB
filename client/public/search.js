@@ -9,12 +9,13 @@ async function moviesReq() {
 
   // function for when user clicks on a poster/poster text
   async function initBack() {
+    let counttab = 5
     const result = document.querySelector('.results');
     document.querySelector('#back').addEventListener('click', ()=> {
       result.innerHTML = ""
       const slice = filterData.slice(50 * page, 50 * (page + 1));
       slice.forEach((movie) => {
-        result.innerHTML += `<li id="${movie.film_id}"class="filmblock"><a>
+        result.innerHTML += `<li id="${movie.film_id}" class="filmblock"><a>
         ${movie.name} (${movie.year})</a>
         </li>`;
       });
@@ -33,20 +34,31 @@ async function moviesReq() {
       const movie = await response.json();
       const movieData = movie.data;
       const result = document.querySelector('.results');
-      const html = `<ul class='moviestatlist' style ="text-align: right">
-        Film Title: ${movieData.name}<br>
-        Year: ${movieData.year}<br>
-        Rated: ${movieData.rating}<br>
-        Score: ${movieData.score}<br>
-        Studio: ${movieData.studio_id}<br>
-        Country: ${movieData.country}<br>
-        Writer: ${movieData.writer_id}<br>
-        Director: ${movieData.director_id}<br>
-        Actor: ${movieData.actor_id}<br>
-        Votes: ${movieData.votes}<br>
-        Budget: ${movieData.budget}<br>
-        </ul>
-        <div id="back" class="button"style="width: 10%">Go Back</div>`;
+      const html = 
+    `<div class='moviestatlist'>
+      <div class='infobox'>
+        <li><a class='lefttext'>Film Title: </a><a class='righttext'>${movieData.name}</a><br></li>
+        <li><a class='lefttext'>Released: </a><a class='righttext'>${movieData.released}</a><br></li>
+        <li><a class='lefttext'>Rated: </a><a class='righttext'>${movieData.rating}</a><br></li>
+        <li><a class='lefttext'>Score: </a><a class='righttext'>${movieData.score}</a><br></li>
+        <li><a class='lefttext'>Studio: </a><a class='righttext'>${movieData.studio_id}</a><br></li>
+        <li><a class='lefttext'>Country: </a><a class='righttext'>${movieData.country}</a><br></li>
+        <li><a class='lefttext'>Writer: </a><a class='righttext'>${movieData.writer_id}</a><br></li>
+        <li><a class='lefttext'>Director: </a><a class='righttext'>${movieData.director_id}</a><br></li>
+        <li><a class='lefttext'>Actor: </a><a class='righttext'>${movieData.actor_id}</a><br></li>
+        <li><a class='lefttext'>Votes: </a><a class='righttext'>${movieData.votes}</a><br></li>
+        <li><a class='lefttext'>Budget: </a><a class='righttext'>${movieData.budget}</a><br></li>
+        <li><a class='lefttext'>Gross: </a><a class='righttext'>${movieData.gross}</a><br></li>
+        <div class="desc">
+          <span>Ideally this would be a description about the movie pulled from an api. Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen, to celebrate their marriage. When they arrive, they find they are not as welcome as they thought they would be.</span>
+        </div>
+        </div>
+      <div class="posterbackframe">
+        <div id="back" class="button"style="width: 40%">Go Back</div>
+        <div class="posterframe"><img src='../sampleposter/xl_948470_406a814a.jpg'></div>
+      </div>
+      
+     </div>`;
       result.innerHTML = html;
       await initBack();
     } catch (err) {
