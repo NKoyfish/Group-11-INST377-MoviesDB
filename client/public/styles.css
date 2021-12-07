@@ -122,6 +122,7 @@ nav {
 .filmblock {
     display: flex;
     gap: 2px;
+    text-shadow: 1px 1px 2px black;
     min-width: 10rem;
     max-width: 10rem;
     max-height: 16.9rem;
@@ -158,9 +159,13 @@ a {
 a:hover {
     color:white
 }
+.footer {
+    min-height: 10vh;
+    width: 100%;
+}
 .column {
     font-size: 25px;
-    min-width:max-content;
+    min-width: 200px;
     max-width: 25%;
     color: white;
     background-color: darkslategray;
@@ -327,6 +332,7 @@ li {
     margin-top: 2rem;
 
 }
+
 .infobox li:nth-child(odd) {
     background-color: cadetblue;
 }
