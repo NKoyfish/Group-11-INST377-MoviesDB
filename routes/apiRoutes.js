@@ -25,44 +25,45 @@ router.route('/movies')
   .post(async (req, res) => {
     try {
       console.log(req.body.name);
-      let message = 'Post Recieved \n'
+      let message = 'Post Recieved \n';
       const filmId = parseFloat(req.body.filmid);
-      //console.log(filmId);
+      // console.log(filmId);
       const filmUpdate = await db.Film.findOne({where: {film_id: `${filmId}`}});
       try {
-        let score = parseFloat(req.body['score'])
-        let runtime = parseInt(req.body['runtime'])
-        let genre = parseInt(req.body['genre'])
-        let writer= parseInt(req.body['writer'])
-        let budget = parseInt(req.body['budget'])
-        let gross = parseInt(req.body['gross'])
-        let actor = parseInt(req.body['actor'])
-        let studio = parseInt(req.body['studio'])
-        let year = parseInt(req.body['year'])
-        let director = parseInt(req.body['director'])
+        const score = parseFloat(req.body.score);
+        const runtime = parseInt(req.body.runtime);
+        const genre = parseInt(req.body.genre);
+        const writer = parseInt(req.body.writer);
+        const budget = parseInt(req.body.budget);
+        const votes = parseInt(req.body.votes);
+        const gross = parseInt(req.body.gross);
+        const actor = parseInt(req.body.actor);
+        const studio = parseInt(req.body.studio);
+        const year = parseInt(req.body.year);
+        const director = parseInt(req.body.director);
 
-        filmUpdate.score = score
-        filmUpdate.runtime = runtime
-        filmUpdate.genre = genre
-        filmUpdate.writer = writer
-        filmUpdate.budget = budget
-        filmUpdate.gross = gross
-        filmUpdate.actor = actor
-        filmUpdate.studio = studio
-        filmUpdate.year = year
-        filmUpdate.director = director
-        filmUpdate.name = req.body['name']
-        filmUpdate.rating = req.body['rating']
-        filmUpdate.country = req.body['country']
-        filmUpdate.save()
-        message += (`${req.body['name']} was updated successfully with new input`)
+        filmUpdate.score = score;
+        filmUpdate.runtime = runtime;
+        filmUpdate.genre = genre;
+        filmUpdate.writer = writer;
+        filmUpdate.budget = budget;
+        filmUpdate.gross = gross;
+        filmUpdate.actor = actor;
+        filmUpdate.votes = votes;
+        filmUpdate.studio = studio;
+        filmUpdate.year = year;
+        filmUpdate.director = director;
+        filmUpdate.name = req.body.name;
+        filmUpdate.rating = req.body.rating;
+        filmUpdate.country = req.body.country;
+        filmUpdate.save();
+        message += (`${req.body.name} was updated successfully with new input`);
       } catch (err) {
-        message += ('Some form input was not playing nice')
-        console.log('weird parse error?')
+        message += ('Some form input was not playing nice');
+        console.log('weird parse error?');
       }
-      res.send(message)
+      res.send(message);
     } catch (error) {
-      
       console.error(error);
       res.send('Something went wrong on /movies end');
     }
