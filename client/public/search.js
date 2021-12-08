@@ -1,11 +1,18 @@
 async function moviesReq() {
   // wikipedia stuff
+  async function loadSnippet(text) {
+    let span = document.querySelector('.wikireplace')
+    span.innerHTML = text
+  }
+
   async function filmlookup(event) {
     event.preventDefault();
     console.log('event', event.target.innerText);
     searchQuery = `${event.target.innerText}(Film)`;
     try {
       const results = await searchWikipedia(searchQuery);
+      console.log(results)
+      await loadSnippet(results[0].snippet)
       console.log('image results');
       const imageSearch = grabImageFromPage(results);
       // const fullurl = getFullImageUrl(imageSearch);
@@ -16,7 +23,7 @@ async function moviesReq() {
   }
 
   async function searchWikipedia(searchQuery) {
-    const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}`;
+    const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}&exchars=1200`;
     const response = await fetch(endpoint);
     if (!response.ok) {
       throw Error(response.statusText);
@@ -47,9 +54,10 @@ async function moviesReq() {
     ) {
       Object.keys(json.query.pages).forEach((id) => {
         if (id > 0) {
+          
           let title = String(json.query.pages[id].title)
           if (!title.includes('.svg')) {
-            console.log(json.query.pages[id].original.source)
+            console.log(json)
             posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`
           }
           
@@ -112,12 +120,12 @@ async function moviesReq() {
         <li><a class='lefttext'>Budget: </a><a class='righttext'>${movieData.budget}</a><br></li>
         <li><a class='lefttext'>Gross: </a><a class='righttext'>${movieData.gross}</a><br></li>
         <div class="desc">
-          <span>Ideally this would be a description about the movie pulled from an api. Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen, to celebrate their marriage. When they arrive, they find they are not as welcome as they thought they would be.</span>
+          <span class='wikireplace'>Ideally this would be a description about the movie pulled from an api. Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen, to celebrate their marriage. When they arrive, they find they are not as welcome as they thought they would be.</span>
         </div>
         </div>
       <div class="posterbackframe">
         <div id="back" class="button"style="width: 40%">Go Back</div>
-        <div class="posterframe"><img src='../sampleposter/xl_948470_406a814a.jpg'></div>
+        <div class="posterframe"><img src=''></div>
       </div>
       
      </div>`;

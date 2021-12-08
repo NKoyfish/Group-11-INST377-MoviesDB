@@ -283,13 +283,13 @@ a:hover {
 .posterframe {
     width: 800px; 
     height:  1352px;
-    background-color: rgb(124, 62, 62);
+    background-color: rgb(22 21 65);
 }
 @media screen and (max-width: 1520px) {
     .posterframe {
         width: 550px; 
         height:  950px;
-        background-color: rgb(124, 62, 62);
+        background-color: rgb(22 21 65);
     }
     .infobox {
         width: 20%;
@@ -302,7 +302,7 @@ a:hover {
     .posterframe {
         width: 600px; 
         height:  1020px;
-        background-color: rgb(124, 62, 62);
+        background-color: rgb(22 21 65);
     }
 }
 
@@ -353,7 +353,7 @@ li {
 .posterframe {
     width: 200px; 
     height:  340px;
-    background-color: rgb(124, 62, 62);
+    background-color: rgb(22 21 65);
 }
 }
 
