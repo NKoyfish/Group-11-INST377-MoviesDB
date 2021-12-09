@@ -102,16 +102,24 @@ router.route('/movies/:filmId')
       res.send("Something went wrong on /movies end or the film_id isn't valid");
     }
   })
-  .delete(async (req, res) => {
+  .delete(async(req, res) => {
     try {
-      const {filmId} = req.params;
-      await db.Film.destroy({where: {film_id: `${filmId}`}});
-      res.send('Film deleted');
+      console.log(req.params)
+      const film = req.params.filmId
+      const filmlist = await db.Film.destroy({where: {name: `${film}`}});
+      console.log(filmlist)
+      if (filmlist) {
+        res.send('Success Deleting Film')
+      }
+      else {
+        res.status(404)
+        res.send('something didnt work')
+      }
     } catch (error) {
       console.error(error);
-      res.send('Something went wrong on /movies end');
     }
   });
+
 
 // This is Jacky's SQL Controllers
 router.route('/genres/:genreId')
@@ -161,6 +169,25 @@ router.route('/genres/:genreId')
       console.error(error);
     }
   });
+
+router.route('/actors/:actorName')
+  .delete(async (req, res) => {
+    try {
+      console.log(req.params)
+      const actor = req.params.actorName
+      const actorlist = await db.Actor.destroy({where: {actor: actor}});
+      console.log(actorlist)
+      if (actorlist) {
+        res.send('Success Deleting Actor')
+      }
+      else {
+        res.status(404)
+        res.send('something didnt work')
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  })
 router.route('/actor/')
   .get(async (req, res) => {
     res.send('hello');
