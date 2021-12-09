@@ -415,7 +415,12 @@ li {
     justify-content: space-around;
     width: 100%;
 }
-
+.posterframe img {
+    object-fit: contain;
+}
+filmblock div img {
+    object-fit: contain;
+}
 .touch {
     position: relative;
     margin-top: 0px;

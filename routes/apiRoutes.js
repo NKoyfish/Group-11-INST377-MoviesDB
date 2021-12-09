@@ -26,41 +26,63 @@ router.route('/movies')
     try {
       console.log(req.body.name);
       let message = 'Post Recieved \n';
-      const filmId = parseFloat(req.body.filmid);
-      // console.log(filmId);
-      const filmUpdate = await db.Film.findOne({where: {film_id: `${filmId}`}});
-      try {
-        const score = parseFloat(req.body.score);
-        const runtime = parseInt(req.body.runtime);
-        const genre = parseInt(req.body.genre);
-        const writer = parseInt(req.body.writer);
-        const budget = parseInt(req.body.budget);
-        const votes = parseInt(req.body.votes);
-        const gross = parseInt(req.body.gross);
-        const actor = parseInt(req.body.actor);
-        const studio = parseInt(req.body.studio);
-        const year = parseInt(req.body.year);
-        const director = parseInt(req.body.director);
+      if (req.body && !req.body.filmid) {
+        console.log('actually adding a movie');
+        await db.Film.create({
+          name: req.body.name,
+          director_id: parseInt(req.body.director),
+          writer_id: parseInt(req.body.writer),
+          genre_id: parseInt(req.body.genre),
+          country: req.body.country,
+          runtime: parseInt(req.body.runtime),
+          year: parseInt(req.body.year),
+          studio_id: parseInt(req.body.studio),
+          score: parseFloat(req.body.score),
+          votes: parseInt(req.body.votes),
+          budget: parseInt(req.body.budget),
+          gross: parseInt(req.body.gross),
+         // released: `${req.body.released}}`,
+          actor_id: parseInt(req.body.actor),
+          rating: req.body.rating
+        });
+      } else {
+      // below handles edits which have req.body.filmid
+        const filmId = parseFloat(req.body.filmid);
+        // console.log(filmId);
+        const filmUpdate = await db.Film.findOne({where: {film_id: `${filmId}`}});
+        try {
+          const score = parseFloat(req.body.score);
+          const runtime = parseInt(req.body.runtime);
+          const genre = parseInt(req.body.genre);
+          const writer = parseInt(req.body.writer);
+          const budget = parseInt(req.body.budget);
+          const votes = parseInt(req.body.votes);
+          const gross = parseInt(req.body.gross);
+          const actor = parseInt(req.body.actor);
+          const studio = parseInt(req.body.studio);
+          const year = parseInt(req.body.year);
+          const director = parseInt(req.body.director);
 
-        filmUpdate.score = score;
-        filmUpdate.runtime = runtime;
-        filmUpdate.genre = genre;
-        filmUpdate.writer = writer;
-        filmUpdate.budget = budget;
-        filmUpdate.gross = gross;
-        filmUpdate.actor = actor;
-        filmUpdate.votes = votes;
-        filmUpdate.studio = studio;
-        filmUpdate.year = year;
-        filmUpdate.director = director;
-        filmUpdate.name = req.body.name;
-        filmUpdate.rating = req.body.rating;
-        filmUpdate.country = req.body.country;
-        filmUpdate.save();
-        message += (`${req.body.name} was updated successfully with new input`);
-      } catch (err) {
-        message += ('Some form input was not playing nice');
-        console.log('weird parse error?');
+          filmUpdate.score = score;
+          filmUpdate.runtime = runtime;
+          filmUpdate.genre = genre;
+          filmUpdate.writer = writer;
+          filmUpdate.budget = budget;
+          filmUpdate.gross = gross;
+          filmUpdate.actor = actor;
+          filmUpdate.votes = votes;
+          filmUpdate.studio = studio;
+          filmUpdate.year = year;
+          filmUpdate.director = director;
+          filmUpdate.name = req.body.name;
+          filmUpdate.rating = req.body.rating;
+          filmUpdate.country = req.body.country;
+          filmUpdate.save();
+          message += (`${req.body.name} was updated successfully with new input`);
+        } catch (err) {
+          message += ('Some form input was not playing nice');
+          console.log('weird parse error?');
+        }
       }
       res.send(message);
     } catch (error) {
@@ -127,10 +149,16 @@ router.route('/genres/:genreId')
     try {
       const {genreId} = req.params;
       const genrelist = await db.Genre.destroy({where: {genre: `${genreId}`}});
-      res.send('Genre deleted');
+      console.log(genrelist)
+      if (genrelist) {
+        res.send('Success Deleting Genre')
+      }
+      else {
+        res.status(404)
+        res.send('something didnt work')
+      }
     } catch (error) {
       console.error(error);
-      res.send('Something went wrong on the /genres end and unable to delete from genre_id');
     }
   });
 router.route('/actor/')
@@ -200,12 +228,18 @@ router
   })
   .delete(async(req, res) => {
     try {
-      const {writerId} = req.params;
-      const writerlist = await db.Writer.destroy({where: {writer_id: `${writerId}`}});
-      res.send('Writer delete');
+      const writername = req.params.writerId;
+      const writer = await db.Writer.destroy({where: {writer: `${writername}`}});
+      console.log(writer)
+      if (writer) {
+        res.send('Success Deleting writer')
+      }
+      else {
+        res.status(404)
+        res.send('something didnt work')
+      }
     } catch (error) {
       console.error(error);
-      res.send('Something went wrong on the /writers end and unable to delete writer_id');
     }
   })
   .put((req, res) => {

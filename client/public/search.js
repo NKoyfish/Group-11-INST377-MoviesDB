@@ -1,8 +1,8 @@
 async function moviesReq() {
   // wikipedia stuff
   async function loadSnippet(text) {
-    let span = document.querySelector('.wikireplace')
-    span.innerHTML = text
+    const span = document.querySelector('.wikireplace');
+    span.innerHTML = text;
   }
 
   async function filmlookup(event) {
@@ -11,8 +11,8 @@ async function moviesReq() {
     searchQuery = `${event.target.innerText}(Film)`;
     try {
       const results = await searchWikipedia(searchQuery);
-      console.log(results)
-      await loadSnippet(results[0].snippet)
+      console.log(results);
+      await loadSnippet(results[0].snippet);
       console.log('image results');
       const imageSearch = grabImageFromPage(results);
       // const fullurl = getFullImageUrl(imageSearch);
@@ -35,7 +35,7 @@ async function moviesReq() {
     return pageid;
   }
   async function grabImageFromPage(pageid) {
-    posterframe = document.querySelector('.posterframe')
+    posterframe = document.querySelector('.posterframe');
     const foundPageID = pageid[0].pageid;
     console.log('pageid:', foundPageID);
     const endpoint = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=images&pageids=${foundPageID}&imlimit=20`;
@@ -54,22 +54,48 @@ async function moviesReq() {
     ) {
       Object.keys(json.query.pages).forEach((id) => {
         if (id > 0) {
-          
-          let title = String(json.query.pages[id].title)
+          const title = String(json.query.pages[id].title);
           if (!title.includes('.svg')) {
-            console.log(json)
-            posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`
+            console.log(json);
+            posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
           }
-          
         }
-        
-        
       });
     }
     console.log();
     // this gets the image file name of the poster
   }
 
+  async function loadPosterFrame(pageid) {
+    posterframe = document.querySelector('#id');
+    const foundPageID = pageid[0].pageid;
+    console.log('pageid:', foundPageID);
+    const endpoint2 = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=pageimages&iwurl=1&pageids=${foundPageID}&generator=images&piprop=original`;
+    const response = await fetch(endpoint2);
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+
+    const json = await response.json();
+    console.log(json);
+    if (
+      json !== undefined
+      && json.query !== undefined
+      && json.query.pages !== undefined
+    ) {
+      Object.keys(json.query.pages).forEach((id) => {
+        if (id > 0) {
+          const title = String(json.query.pages[id].title);
+          if (!title.includes('.svg')) {
+            console.log(json);
+            posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
+          }
+        }
+      });
+    }
+    console.log();
+    // this gets the image file name of the poster
+  }
   const searchinput = document.querySelector('.search');
   let page = 0;
   const allData = await fetch('/api/movies', {
@@ -139,6 +165,9 @@ async function moviesReq() {
   async function posterEvents(list) {
     list.forEach((elm) => {
       const movieElm = document.querySelector(`[id='${elm.film_id}']`);
+      // attempt to add poster to posterbox here
+
+      // attempt over
       movieElm.addEventListener('click', (event) => {
         if (event.path.length > 7) {
           clickId = event.path[1].attributes[0].nodeValue;
@@ -176,6 +205,7 @@ async function moviesReq() {
       });
       // add event listeners to posters
       posterEvents(slice);
+
       // console.log('display', slice);
     }
   }
