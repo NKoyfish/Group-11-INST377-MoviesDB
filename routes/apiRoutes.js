@@ -90,6 +90,39 @@ router.route('/movies')
       res.send('Something went wrong on /movies end');
     }
   });
+router.route('/movies/genres/:genre')
+  .get(async (req,res) => {
+    try {
+      const {genre} = req.params;
+      console.log(genre)
+      //checks if its a genre
+      if (["Adventure","Comedy","Action","Drama","Crime","Thriller","Horror","Animation","Biography","Sci-Fi","Musical","Family","Fantasy","Mystery","War","Romance","Western","Suspense"].includes(genre)) {
+        let genreList = await db.Genre.findAll()
+        //let pairingGenreData = {} was gonna load everything at once in case i need later
+        let list = {}
+        genreList.forEach((elm) => {
+          list[elm.genre] = elm.genre_id
+        })
+        
+        //console.log('Genre:', genre, list[genre])
+        //unrelated
+        /* genreList.map(async elm => {
+          let data = await db.Film.findAll({where: {genre_id: `${list[elm.genre]}`}})
+          pairingGenreData[elm.genre] = data
+          console.log(data)
+        }) */
+        let data = await db.Film.findAll({where: {genre_id: `${list[genre]}`}})
+
+        res.json({genre: data})
+      } 
+      else 
+      {const filmlist = await db.Film.findOne({where: {film_id: `${filmId}`}});
+      res.json({data: filmlist});}
+    } catch (error) {
+      console.error(error);
+      res.send("Something went wrong on /movies end or the film_id isn't valid");
+    }
+  });
 
 router.route('/movies/:filmId')
   .get(async (req, res) => {
@@ -126,6 +159,24 @@ router.route('/genres/:genreId')
   .get(async (req, res) => {
     try {
       const {genreId} = req.params;
+      if (genreId === '0') //gets all the genres as key value pairs
+      {
+        let genreList = await db.Genre.findAll()
+        let list = {}
+        genreList.forEach((genre) => {
+          list[genre.genre_id] = genre.genre
+        })
+        res.json({genres:list})
+      }
+      if (genreId === '&0') //reverse pair
+      {
+        let genreList = await db.Genre.findAll()
+        let list = {}
+        genreList.forEach((genre) => {
+          list[genre.genre] = genre.genre_id
+        })
+        res.json({genres:list})
+      }
       const genrelist = await db.Genre.findOne({where: {genre_id: `${genreId}`}});
 
       if (genrelist !== null) {

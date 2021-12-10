@@ -2,7 +2,7 @@ let slidePosition = 0;
 const slides = document.querySelectorAll('.carousel__item');
 const totalSlides = slides.length;
 
-next = document.querySelector('.next');
+next = document.querySelector('.carouselnext');
 next.addEventListener('click', () => {
   moveToNextSlide();
   const pclasses = prev.classList
@@ -11,7 +11,7 @@ next.addEventListener('click', () => {
   if (!nclasses.contains('lastClick')) {next.classList = newClass}
   if (pclasses.contains('lastClick')) {prev.classList = 'carousel__button--prev '}
 });
-prev = document.querySelector('.prev');
+prev = document.querySelector('.carouselprev');
 prev.addEventListener('click', () => {
   moveToPrevSlide();
   const pclasses = prev.classList
