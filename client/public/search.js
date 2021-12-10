@@ -11,7 +11,7 @@ async function moviesReq() {
     searchQuery = `${event.target.innerText}(Film)`;
     try {
       const results = await searchWikipedia(searchQuery);
-      console.log(results);
+      //console.log(results);
       await loadSnippet(results[0].snippet);
       console.log('image results');
       const imageSearch = grabImageFromPage(results);
@@ -21,7 +21,17 @@ async function moviesReq() {
       console.log('Failed to search wikipedia');
     }
   }
-
+  async function checkImgStatus() {
+    let posterref = document.querySelector('.imgposter')
+    let posterframe = document.querySelector('.posterframe')
+   
+    if (String(posterframe.innerHTML).includes('src=""')) {
+      console.log('fail')
+      posterframe.innerHTML = `Me when my image search doesn't work
+      <img style='width:50%'src="https://media.tenor.com/images/2cb406e7619b591b7f7ca89b51989f57/tenor.gif">`
+    }
+    
+  }
   async function searchWikipedia(searchQuery) {
     const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=1&srsearch=${searchQuery}&exchars=1200`;
     const response = await fetch(endpoint);
@@ -37,14 +47,13 @@ async function moviesReq() {
   async function grabImageFromPage(pageid) {
     posterframe = document.querySelector('.posterframe');
     const foundPageID = pageid[0].pageid;
-    console.log('pageid:', foundPageID);
+    //console.log('pageid:', foundPageID);
     const endpoint = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=images&pageids=${foundPageID}&imlimit=20`;
     const endpoint2 = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=pageimages&iwurl=1&pageids=${foundPageID}&generator=images&piprop=original`;
     const response = await fetch(endpoint2);
     if (!response.ok) {
       throw Error(response.statusText);
     }
-
     const json = await response.json();
     console.log(json);
     if (
@@ -56,46 +65,16 @@ async function moviesReq() {
         if (id > 0) {
           const title = String(json.query.pages[id].title);
           if (!title.includes('.svg')) {
-            console.log(json);
-            posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
+            //console.log(json);
+            console.log('made it into foreach')
+            posterframe.innerHTML = `<img class='imgposter' src=${json.query.pages[id].original.source}>`;
           }
         }
-      });
+      })
     }
-    console.log();
-    // this gets the image file name of the poster
+    await checkImgStatus()
   }
 
-  async function loadPosterFrame(pageid) {
-    posterframe = document.querySelector('#id');
-    const foundPageID = pageid[0].pageid;
-    console.log('pageid:', foundPageID);
-    const endpoint2 = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=pageimages&iwurl=1&pageids=${foundPageID}&generator=images&piprop=original`;
-    const response = await fetch(endpoint2);
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-
-    const json = await response.json();
-    console.log(json);
-    if (
-      json !== undefined
-      && json.query !== undefined
-      && json.query.pages !== undefined
-    ) {
-      Object.keys(json.query.pages).forEach((id) => {
-        if (id > 0) {
-          const title = String(json.query.pages[id].title);
-          if (!title.includes('.svg')) {
-            console.log(json);
-            posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
-          }
-        }
-      });
-    }
-    console.log();
-    // this gets the image file name of the poster
-  }
   const searchinput = document.querySelector('.search');
   let page = 0;
   const allData = await fetch('/api/movies', {
