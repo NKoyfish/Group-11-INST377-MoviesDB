@@ -9,6 +9,6 @@
 
 /api/actor is the actor in the movie
 
-the .get method for /api/genre would get the genre that is selected.
+The .get method for /api/genre would get the genre that is selected.
 
 If using for example /api/route:genres, this would go to the page to add or delete a genre.
