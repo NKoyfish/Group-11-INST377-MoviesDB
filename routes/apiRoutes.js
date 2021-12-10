@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 router.route('/movies')
   .get(async (req, res) => {
     try {
-      const filmlist = await db.Film.findAll();
+      const filmlist = await db.Film.findAll({order: [['year','DESC'],['score','DESC'],['gross','DESC']]});
       res.json({data: filmlist});
     } catch (error) {
       console.error(error);
