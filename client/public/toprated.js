@@ -1,4 +1,4 @@
-async function loadGenres() {
+async function loadTop() {
   // wikipedia stuff
   async function loadSnippet(text) {
     const span = document.querySelector('.wikireplace');
@@ -96,23 +96,23 @@ async function loadGenres() {
     console.log();
     // this gets the image file name of the poster
   }
+
   let page = 0;
-  const allData = await fetch('/api/movies', {
+
+  const allData = await fetch('/api/movies/sorted', {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
   });
+  
   logData = await allData.json();
   let filterData = logData;
-
+  console.log(filterData)
+ 
   // function for when user clicks on a poster/poster text
   async function initBack() {
     const result = document.querySelector('.results');
     document.querySelector('#back').addEventListener('click', () => {
       result.innerHTML = '';
-      const slice = filterData.slice(50 * page, 50 * (page + 1));
-      if (slice.length === 0) {
-          page--;
-          displayMovieLogs(filterData);
-      }
+      const slice = filterData.data.slice(50 * page, 50 * (page + 1));
       slice.forEach((movie) => {
         result.innerHTML += `<li id="${movie.film_id}" class="filmblock"><a>
           ${movie.name} (${movie.year})</a>
@@ -220,49 +220,17 @@ async function loadGenres() {
   next.addEventListener('click', () => {
     page++;
     result.innerHTML = '';
-    displayMovieLogs(filterData);
+    displayMovieLogs(filterData.data);
   });
 
   prev.addEventListener('click', (evt) => {
     page--;
     result.innerHTML = '';
-    displayMovieLogs(filterData);
+    displayMovieLogs(filterData.data);
   });
 
-  function findMatches(wordToMatch, array) {
-    if (!wordToMatch) {
-      result.innerHTML = '';
-    }
-    const tempData = logData.data;
-    console.log(tempData);
-    return tempData.filter((search) => {
-      const regex = new RegExp(wordToMatch, 'gi');
-      return String(search.genre_id).match(wordToMatch);
-    });
-  }
-
-  async function displayMatches(event) {
-    // console.log(event.value);
-    console.log('somehow activated')
-    console.log(event.target.outerText);
-    const genreReference = await fetch('/api/genres/&0', {
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
-    });
-    const genreData = await genreReference.json();
-    console.log(genreData);
-    searchtarget = genreData.genres[event.target.outerText];
-    console.log('made it here', searchtarget);
-    const matchArray = findMatches(searchtarget, logData.data);
-    filterData = matchArray;
-    displayMovieLogs(filterData);
-  }
-  document.querySelectorAll('.column').forEach(col=> {col.addEventListener('click', (evt) => {
-    console.log('clicked column');
-    result.innerHTML = ''
-    page = 0
-    displayMatches(evt);
-  })
-  });
+  
+  displayMovieLogs(filterData.data)
 }
 
-window.onload = loadGenres;
+window.onload = loadTop;

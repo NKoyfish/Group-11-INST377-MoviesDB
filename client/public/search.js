@@ -106,7 +106,6 @@ async function moviesReq() {
 
   // function for when user clicks on a poster/poster text
   async function initBack() {
-    const counttab = 5;
     const result = document.querySelector('.results');
     document.querySelector('#back').addEventListener('click', () => {
       result.innerHTML = '';

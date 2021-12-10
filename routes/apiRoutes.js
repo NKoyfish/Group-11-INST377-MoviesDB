@@ -90,6 +90,18 @@ router.route('/movies')
       res.send('Something went wrong on /movies end');
     }
   });
+
+  router.route('/movies/sorted')
+  .get(async (req,res) => {
+    try {
+      let sorted = await db.Film.findAll({order: [['score','DESC']]})
+      res.json({data: sorted})
+    }
+    catch (err){
+      res.send(err)
+    }
+  });
+
 router.route('/movies/genres/:genre')
   .get(async (req,res) => {
     try {
