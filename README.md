@@ -1,5 +1,10 @@
 # Movie Database Project
 
+## Dependencies
+chartjs-to-image
+
+npm install chartjs-to-image
+
 ## Description
 
 ## Server Application API Methods
