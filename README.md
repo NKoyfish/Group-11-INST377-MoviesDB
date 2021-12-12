@@ -32,3 +32,5 @@ https://rocky-journey-95706.herokuapp.com/
 • MacBook Air (2017 and newer models)
 
 • MacBook Pro (2017 and newer models)
+
+# Developer Manual
