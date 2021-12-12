@@ -1,4 +1,8 @@
 # Movie Database Project
+
+# Description
+
+# Server Application API Methods
 /api/movies is a get request that retrieves all rows
 
 /api/genres is the one with the delete and post method for adding and deleting genres
