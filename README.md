@@ -2,6 +2,7 @@
 
 ## Dependencies
 chartjs-to-image
+
 npm install chartjs-to-image
 
 ## Description
