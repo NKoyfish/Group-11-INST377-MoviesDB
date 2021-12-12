@@ -1,6 +1,6 @@
 # Movie Database Project
 
-# Description
+## Description
 
 # Server Application API Methods
 /api/movies is a get request that retrieves all rows
