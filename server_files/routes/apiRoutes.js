@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import express from 'express';
 import sequelize from 'sequelize';
-import chart from 'chart.js';
 import ChartJsImage from 'chartjs-to-image';
 
 import db from '../database/initializeDB.js';
@@ -102,15 +101,15 @@ router.route('/movies')
 
           filmUpdate.score = score;
           filmUpdate.runtime = runtime;
-          filmUpdate.genre = genre;
-          filmUpdate.writer = writer;
+          filmUpdate.genre_id = genre;
+          filmUpdate.writer_id = writer;
           filmUpdate.budget = budget;
           filmUpdate.gross = gross;
           filmUpdate.actor = actor;
           filmUpdate.votes = votes;
-          filmUpdate.studio = studio;
+          filmUpdate.studio_id = studio;
           filmUpdate.year = year;
-          filmUpdate.director = director;
+          filmUpdate.director_id = director;
           filmUpdate.name = req.body.name;
           filmUpdate.rating = req.body.rating;
           filmUpdate.country = req.body.country;
