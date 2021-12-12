@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap"
       rel="stylesheet"
@@ -14,7 +15,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
-    <link rel="stylesheet" href="./css/aboutstyles.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <title>Group 11 Movies Database</title>
   </head>
   <body>
@@ -33,35 +34,15 @@
         <div class="line3"></div>
       </div>
     </nav>
-    <h1>About the Movie Database</h1>
-
-    <div class="columns">
-      <div class="column is-half">
-        <h2>
-          This application aims to provide a database of movies along with
-          relevant information such as the rating, budget, review score, actors,
-          etc. Users can browse movies, favorite them, and even add their own.
-          This app will be a useful tool in discovering new movies as well as
-          keeping a history of previously watched ones.
-        </h2>
-      </div>
-      <div class="column">
-        <h2>
-            Technology Stack:
-        </h2>
-        <img src="https://www.fullstackpython.com/img/logos/heroku.png" alt="Heroku Logo"/>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/600px-JavaScript-logo.png" alt="js">
-        <img src="https://www.logo.wine/a/logo/MySQL/MySQL-Logo.wine.svg" alt="mysql">
-        <img src="https://bulma.io/images/bulma-banner.png" alt="bulma">
-      </div>
+    <h1>Insights</h1>
+    <div class="imgcont">
+      <h2>Most Popular Genres</h2>
+      <img src="newchart.png">
+      <button class="button">Refresh Chart</button>
+      <button class="loadcount">Exact Genre Counts</button>
+      <span class="count"></span>
     </div>
-
-    <div>
-        <h2>
-            Developed with love by Kavi, Jacky, Henry, and Josue.
-        </h2>
-    </div>
-
+    <script src="../js/reloadchart.js"></script>
     <script src="../js/navbar.js"></script>
   </body>
 </html>

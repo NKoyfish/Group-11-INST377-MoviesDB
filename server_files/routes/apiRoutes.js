@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import express from 'express';
 import sequelize from 'sequelize';
-// import { UPSERT } from "sequelize/types/lib/query-types";
+import chart from 'chart.js';
+import ChartJsImage from 'chartjs-to-image';
 
 import db from '../database/initializeDB.js';
 
@@ -10,12 +11,48 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send('default route');
 });
+router.route('/chart')
+  .get(async (req, res) => {
+    const movies = await db.Film.findAll({
+      attributes: ['genre_id', [sequelize.fn('count', sequelize.col('genre_id')), 'count']],
+      group: ['genre_id']
+    });
+    const dataValues = [];
+    const columnNames = [];
+    const genreList = await db.Genre.findAll();
+    const genreMap = {};
+    genreList.forEach((genre) => {
+      genreMap[genre.genre_id] = genre.genre;
+    });
+    let pairData = []
+    movies.forEach((genre) => {
+      // console.log((genre.dataValues.count))
+      // dataValues.push(`genre_id: ${genre.genre_id}, genre_name: ${genreMap[genre.genre_id]} ${genre.dataValues.count}`)
+      columnNames.push(genreMap[genre.genre_id]);
+      dataValues.push(genre.dataValues.count);
+      pairData.push(`${genreMap[genre.genre_id]}: ${genre.dataValues.count}`)
+    });
+
+    //console.log(dataValues);
+    //console.log(columnNames);
+    // console.log(list)
+    res.json({data: [pairData]});
+
+    const chart = new ChartJsImage();
+    chart.setConfig({
+      type: 'bar',
+      data: { labels: columnNames, datasets: [{ label: 'Genre Count', data: dataValues }] }
+    });
+
+    // Save it
+    chart.toFile('./client/public/newchart.png');
+  });
 
 // db.Actor and db.Film work
 router.route('/movies')
   .get(async (req, res) => {
     try {
-      const filmlist = await db.Film.findAll({order: [['year','DESC'],['score','DESC'],['gross','DESC']]});
+      const filmlist = await db.Film.findAll({order: [['year', 'DESC'], ['score', 'DESC'], ['gross', 'DESC']]});
       res.json({data: filmlist});
     } catch (error) {
       console.error(error);
@@ -41,7 +78,7 @@ router.route('/movies')
           votes: parseInt(req.body.votes),
           budget: parseInt(req.body.budget),
           gross: parseInt(req.body.gross),
-         // released: `${req.body.released}}`,
+          // released: `${req.body.released}}`,
           actor_id: parseInt(req.body.actor),
           rating: req.body.rating
         });
@@ -91,45 +128,44 @@ router.route('/movies')
     }
   });
 
-  router.route('/movies/sorted')
-  .get(async (req,res) => {
+router.route('/movies/sorted')
+  .get(async (req, res) => {
     try {
-      let sorted = await db.Film.findAll({order: [['score','DESC']]})
-      res.json({data: sorted})
-    }
-    catch (err){
-      res.send(err)
+      const sorted = await db.Film.findAll({order: [['score', 'DESC']]});
+      res.json({data: sorted});
+    } catch (err) {
+      res.send(err);
     }
   });
 
 router.route('/movies/genres/:genre')
-  .get(async (req,res) => {
+  .get(async (req, res) => {
     try {
       const {genre} = req.params;
-      console.log(genre)
-      //checks if its a genre
-      if (["Adventure","Comedy","Action","Drama","Crime","Thriller","Horror","Animation","Biography","Sci-Fi","Musical","Family","Fantasy","Mystery","War","Romance","Western","Suspense"].includes(genre)) {
-        let genreList = await db.Genre.findAll()
-        //let pairingGenreData = {} was gonna load everything at once in case i need later
-        let list = {}
+      console.log(genre);
+      // checks if its a genre
+      if (['Adventure', 'Comedy', 'Action', 'Drama', 'Crime', 'Thriller', 'Horror', 'Animation', 'Biography', 'Sci-Fi', 'Musical', 'Family', 'Fantasy', 'Mystery', 'War', 'Romance', 'Western', 'Suspense'].includes(genre)) {
+        const genreList = await db.Genre.findAll();
+        // let pairingGenreData = {} was gonna load everything at once in case i need later
+        const list = {};
         genreList.forEach((elm) => {
-          list[elm.genre] = elm.genre_id
-        })
-        
-        //console.log('Genre:', genre, list[genre])
-        //unrelated
+          list[elm.genre] = elm.genre_id;
+        });
+
+        // console.log('Genre:', genre, list[genre])
+        // unrelated
         /* genreList.map(async elm => {
           let data = await db.Film.findAll({where: {genre_id: `${list[elm.genre]}`}})
           pairingGenreData[elm.genre] = data
           console.log(data)
         }) */
-        let data = await db.Film.findAll({where: {genre_id: `${list[genre]}`}})
+        const data = await db.Film.findAll({where: {genre_id: `${list[genre]}`}});
 
-        res.json({genre: data})
-      } 
-      else 
-      {const filmlist = await db.Film.findOne({where: {film_id: `${filmId}`}});
-      res.json({data: filmlist});}
+        res.json({genre: data});
+      } else {
+        const filmlist = await db.Film.findOne({where: {film_id: `${filmId}`}});
+        res.json({data: filmlist});
+      }
     } catch (error) {
       console.error(error);
       res.send("Something went wrong on /movies end or the film_id isn't valid");
@@ -149,45 +185,43 @@ router.route('/movies/:filmId')
   })
   .delete(async(req, res) => {
     try {
-      console.log(req.params)
-      const film = req.params.filmId
+      console.log(req.params);
+      const film = req.params.filmId;
       const filmlist = await db.Film.destroy({where: {name: `${film}`}});
-      console.log(filmlist)
+      console.log(filmlist);
       if (filmlist) {
-        res.send('Success Deleting Film')
-      }
-      else {
-        res.status(404)
-        res.send('something didnt work')
+        res.send('Success Deleting Film');
+      } else {
+        res.status(404);
+        res.send('something didnt work');
       }
     } catch (error) {
       console.error(error);
     }
   });
 
-
 // This is Jacky's SQL Controllers
 router.route('/genres/:genreId')
   .get(async (req, res) => {
     try {
       const {genreId} = req.params;
-      if (genreId === '0') //gets all the genres as key value pairs
+      if (genreId === '0') // gets all the genres as key value pairs
       {
-        let genreList = await db.Genre.findAll()
-        let list = {}
+        const genreList = await db.Genre.findAll();
+        const list = {};
         genreList.forEach((genre) => {
-          list[genre.genre_id] = genre.genre
-        })
-        res.json({genres:list})
+          list[genre.genre_id] = genre.genre;
+        });
+        res.json({genres: list});
       }
-      if (genreId === '&0') //reverse pair
+      if (genreId === '&0') // reverse pair
       {
-        let genreList = await db.Genre.findAll()
-        let list = {}
+        const genreList = await db.Genre.findAll();
+        const list = {};
         genreList.forEach((genre) => {
-          list[genre.genre] = genre.genre_id
-        })
-        res.json({genres:list})
+          list[genre.genre] = genre.genre_id;
+        });
+        res.json({genres: list});
       }
       const genrelist = await db.Genre.findOne({where: {genre_id: `${genreId}`}});
 
@@ -209,24 +243,16 @@ router.route('/genres/:genreId')
       res.send('Something went wrong on the /genres end and unable to update genre_id');
     }
   })
-  .put((req, res) => {
-    try {
-    } catch (error) {
-      console.error(error);
-      res.send('Something went wrong on the /genres end');
-    }
-  })
   .delete(async(req, res) => {
     try {
       const {genreId} = req.params;
       const genrelist = await db.Genre.destroy({where: {genre: `${genreId}`}});
-      console.log(genrelist)
+      console.log(genrelist);
       if (genrelist) {
-        res.send('Success Deleting Genre')
-      }
-      else {
-        res.status(404)
-        res.send('something didnt work')
+        res.send('Success Deleting Genre');
+      } else {
+        res.status(404);
+        res.send('something didnt work');
       }
     } catch (error) {
       console.error(error);
@@ -236,25 +262,22 @@ router.route('/genres/:genreId')
 router.route('/actors/:actorName')
   .delete(async (req, res) => {
     try {
-      console.log(req.params)
-      const actor = req.params.actorName
+      console.log(req.params);
+      const actor = req.params.actorName;
       const actorlist = await db.Actor.destroy({where: {actor: actor}});
-      console.log(actorlist)
+      console.log(actorlist);
       if (actorlist) {
-        res.send('Success Deleting Actor')
-      }
-      else {
-        res.status(404)
-        res.send('something didnt work')
+        res.send('Success Deleting Actor');
+      } else {
+        res.status(404);
+        res.send('something didnt work');
       }
     } catch (error) {
       console.error(error);
     }
-  })
+  });
+
 router.route('/actor/')
-  .get(async (req, res) => {
-    res.send('hello');
-  })
   .post(async(req, res) => {
     try {
       const actor = req.body.name;
@@ -266,9 +289,6 @@ router.route('/actor/')
     }
   });
 router.route('/genre/')
-  .get(async (req, res) => {
-    res.send('hello');
-  })
   .post(async(req, res) => {
     try {
       const test = req.body.name;
@@ -306,27 +326,16 @@ router
       res.send("Something went wrong on the /writer end or the writer_id isn't valid");
     }
   })
-  .post(async(req, res) => {
-    try {
-      const {writerId} = req.params;
-      const writerlist = await db.Writer.create({writer_id: `${writerId}`, writer: 'testwriter'});
-      res.send('Writer added');
-    } catch (error) {
-      console.error(error);
-      res.send('Something went wrong on the /writers end and unable to update writer_id');
-    }
-  })
   .delete(async(req, res) => {
     try {
       const writername = req.params.writerId;
       const writer = await db.Writer.destroy({where: {writer: `${writername}`}});
-      console.log(writer)
+      console.log(writer);
       if (writer) {
-        res.send('Success Deleting writer')
-      }
-      else {
-        res.status(404)
-        res.send('something didnt work')
+        res.send('Success Deleting writer');
+      } else {
+        res.status(404);
+        res.send('something didnt work');
       }
     } catch (error) {
       console.error(error);
