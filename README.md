@@ -17,9 +17,14 @@ If using for example /api/route:genres, this would go to the page to add or dele
 https://rocky-journey-95706.herokuapp.com/
 
 # Compatible Broswers
-iPhone 7 and newer models
-Samsung Galaxy S7 and newer models
-Google Pixel 2 and newer models
-Windows 10 and higher
-MacBook Air (2017 and newer models)
-MacBook Pro (2017 and newer models)
+• iPhone 7 and newer models
+
+• Samsung Galaxy S7 and newer models
+
+• Google Pixel 2 and newer models
+
+• Windows 10 and higher
+
+• MacBook Air (2017 and newer models)
+
+• MacBook Pro (2017 and newer models)
