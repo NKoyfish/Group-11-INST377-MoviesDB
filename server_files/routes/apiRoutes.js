@@ -233,16 +233,6 @@ router.route('/genres/:genreId')
       res.send("Something went wrong on the /genres end or the genre_id isn't valid");
     }
   })
-  .post(async(req, res) => {
-    try {
-      const {genreId} = req.params;
-      const genrelist = await db.Genre.create({genre_id: `${genreId}`, genre: 'Suspense'});
-      res.send('Genre added');
-    } catch (error) {
-      console.error(error);
-      res.send('Something went wrong on the /genres end and unable to update genre_id');
-    }
-  })
   .delete(async(req, res) => {
     try {
       const {genreId} = req.params;
