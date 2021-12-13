@@ -26,14 +26,15 @@ router.route('/chart')
     let pairData = []
     movies.forEach((genre) => {
       // console.log((genre.dataValues.count))
-      // dataValues.push(`genre_id: ${genre.genre_id}, genre_name: ${genreMap[genre.genre_id]} ${genre.dataValues.count}`)
+      // dataValues.push(`genre_id: ${genre.genre_id},
+      // genre_name: ${genreMap[genre.genre_id]} ${genre.dataValues.count}`)
       columnNames.push(genreMap[genre.genre_id]);
       dataValues.push(genre.dataValues.count);
       pairData.push(`${genreMap[genre.genre_id]}: ${genre.dataValues.count}`)
     });
 
-    //console.log(dataValues);
-    //console.log(columnNames);
+    // console.log(dataValues);
+    // console.log(columnNames);
     // console.log(list)
     res.json({data: [pairData]});
 
