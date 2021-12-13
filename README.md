@@ -1,7 +1,8 @@
 # Movie Database Project
 
 ## Description
-When searching for any movie, the usage of this database will help then user
+When searching for any movie, the user will go through a long process to find the move they want. To fix this,
+the usage of this database will help the user find the movie they like and it will be faster and more reliable.
 
 
 ## Link to Project Website
