@@ -43,6 +43,8 @@ the usage of this database will help the user find the movie they like and it wi
 • Go to ```http://localhost:3000/``` on your browser
 
 ## Server Application APIs
+```/api``` - the API route for the movies database
+
 /api/movies is a get request that retrieves all rows
 
 /api/genres is the one with the delete and post method for adding and deleting genres
