@@ -60,7 +60,7 @@ the usage of this database will help the user find the movie they like and it wi
 ## Server Application API Methods
 The .get method for /api/genre would get the genre that is selected.
 
-If using for example /api/route:genre, this would go to the page to add or delete a genre.
+If using for example /api/route:genre, this would go to the page get the genre that is being passed in.
 
 The .delete method for /api/genre deletes the genre.
 
