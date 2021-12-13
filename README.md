@@ -26,12 +26,21 @@ https://rocky-journey-95706.herokuapp.com/
 
 # Developer Manual
 
-## How to install an application
+## How to install an application and other dependencies from other libraries
 • Clone this repository
 
 • Open the repository in VS Code 
 
-• Type npm install in the terminal and should be ready to use
+• Type ```npm install``` in the terminal and run it
+
+• The application should be ready to use
+
+## How to run an application on the server
+• Open the repository on VS Code and open up the terminal
+
+• Type ```npm start``` and run it
+
+• Go to ```http://localhost:3000/``` on your browser
 
 ## Server Application APIs
 /api/movies is a get request that retrieves all rows
