@@ -28,6 +28,11 @@ https://rocky-journey-95706.herokuapp.com/
 
 # Developer Manual
 
+## How to install an application
+• Clone this repository
+• Open the repository in VS Code 
+• Type npm install in the terminal and should be ready to use
+
 ## Server Application API Methods
 /api/movies is a get request that retrieves all rows
 
