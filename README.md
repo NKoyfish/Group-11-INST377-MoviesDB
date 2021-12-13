@@ -24,7 +24,7 @@ https://rocky-journey-95706.herokuapp.com/
 ## Links
 •
 
-•Developer Manual https://github.com/NKoyfish/Group-11-INST377-MoviesDB#developer-manual
+• [Developer Manual](https://github.com/NKoyfish/Group-11-INST377-MoviesDB#developer-manual)
 
 # Developer Manual
 
