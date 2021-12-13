@@ -6,7 +6,7 @@ the usage of this database will help the user find the movie they like and it wi
 
 
 ## Link to Project Website
-https://rocky-journey-95706.herokuapp.com/
+[https://rocky-journey-95706.herokuapp.com/](https://rocky-journey-95706.herokuapp.com/)
 
 ## Targeted Broswers
 • iPhone 7 and newer models
