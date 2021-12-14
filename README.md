@@ -66,6 +66,8 @@ If using for example accessing /api/genres/6 with a delete fetch request would d
 
 The .delete method for /api/genre deletes the genre.
 
+Currently, it is unused due to the nature of users not knowing which genre_id matches to which actual genre name, but can be used by future developers to quickly delete genre_ids they know.
+
 Writer:
 Three methods are used for /api/writer; GET, DELETE, and PUT
 
@@ -75,7 +77,6 @@ DELETE removes an entry of a writer
 
 PUT adds a new writer entry
 
-Currently, it is unused due to the nature of users not knowing which genre_id matches to which actual genre name, but can be used by future developers to quickly delete genre_ids they know.
 
 ## Dependencies
 chartjs-to-image
