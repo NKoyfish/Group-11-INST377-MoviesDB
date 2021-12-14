@@ -83,7 +83,7 @@ nav {
     font-size: 50pt;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    color: white;
+    color: cornsilk;
     width: 100%;
 }
 .webtitle {
@@ -357,7 +357,7 @@ li {
 .clickable a {
     cursor: pointer;
     width: 100%;
-    color:rgb(226, 226, 226);
+    color:cornsilk;
     text-align: center;
 }
 .clickable {
