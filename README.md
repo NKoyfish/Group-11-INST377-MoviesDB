@@ -8,38 +8,33 @@ When searching for any movie, the user will go through a long process to find th
 [https://rocky-journey-95706.herokuapp.com/](https://rocky-journey-95706.herokuapp.com/)
 
 ## Targeted Broswers
-• iPhone 7 and newer models
-
-• Samsung Galaxy S7 and newer models
-
-• Google Pixel 2 and newer models
-
-• Windows 10 and higher
-
-• MacBook Air (2017 and newer models)
-
-• MacBook Pro (2017 and newer models)
+* iPhone 7 and newer models
+* Samsung Galaxy S7 and newer models
+* Google Pixel 2 and newer models
+* Windows 10 and higher
+* MacBook Air (2017 and newer models)
+* MacBook Pro (2017 and newer models)
 
 ## Link for Developer Manual
-• [Developer Manual](https://github.com/NKoyfish/Group-11-INST377-MoviesDB#developer-manual)
+* [Developer Manual](https://github.com/NKoyfish/Group-11-INST377-MoviesDB#developer-manual)
 
 # Developer Manual
 
 ## How to install an application and other dependencies from other libraries
-• Clone this repository
-
-• Open the repository in VS Code 
-
-• Type ```npm install``` in the terminal and run it
-
-• The application should be ready to use
+* Clone this repository
+* Open the repository in VS Code 
+* Type ```npm install``` in the terminal and run it
+* The application should be ready to use
 
 ## How to run an application on the server
-• Open the repository on VS Code and open up the terminal
+* Open the repository on VS Code and open up the terminal
+* Type ```npm start``` and run it
+* Go to ```http://localhost:3000/``` on your browser
 
-• Type ```npm start``` and run it
-
-• Go to ```http://localhost:3000/``` on your browser
+## How to run tests on the terminal
+* Open two terminals and have to be in the main project repository
+* Type ```npm start``` in first terminal and run it
+* Type ```npm test``` in second terminal and run it
 
 ## Server Application APIs
 ```/api``` - the API route for the movies database
@@ -104,11 +99,16 @@ PUT adds a new writer entry
 
 
 ## Dependencies
-chartjs-to-image
-
-npm install chartjs-to-image
+* chartjs-to-image
+* npm install chartjs-to-image
 
 ## Known Bugs
-• Some of the posters on the movies database doesn't show up.
+* Some of the posters on the movies database doesn't show up.
+* The entry ID appears instead of actual movie data in some cases.
 
-• The entry ID appears instead of actual movie data in some cases.
+## Future Developments
+* Adding more functions to make all posters appear and clean up the bugs.
+* Display more info not just on the movie but for actors, and more descriptions.
+* Display reviews for all movies
+* 
+*
