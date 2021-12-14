@@ -41,32 +41,15 @@ These tests are used to make sure there are no errors and the server is running 
 ## Server Application APIs
 ```/api``` - the API route for the movies database
 
-```/api/movies```
-
-  ```GET:```  returns all records in order by year, score, and gross in descending order
+```/api/movies``` retrieves movies
               
-  ```POST:``` adds or edits a movie based on req.body form input from addfilm.html
-              if req.body has a valid film_id then it will update the rows with the new data.
-              If req.body doesn't pass in a film_id then it will add a new record to db.Films with the new data
-              
- ```/api/movies/sorted```
+ ```/api/movies/sorted``` retrieves movies sorted by year
  
-  ```GET:```  returns a json object with all the records in db.Film sorted by only the year
-  
- ```/api/movies/genres/:genre```
-  
-  ```GET:```  returns a json object with films matching the passed in {genre} name. IE. /movies/genres/Adventure would return all Adventure movies as a json.
-              May not work with non predetermined genres other than those in the genre array found in the method.
+ ```/api/movies/genres/:genre``` retrieves movies specified by genre
 
-```/api/movies/:filmID```
-
-  ```GET:```  returns a json object of an individual film matching film_id {filmId}
+```/api/movies/:filmID``` retrieves movie specified by filmID
   
-  ```DELETE:```  Deletes a row from db.Film matching film_id {filmId} and sends a message and or status on failure
-  
-```/api/chart```
-
-  ```GET:```  uses ChartJSImage to generate a new png of the genre count in db.Film and returns a json array of the exact count of each genre.
+```/api/chart``` creates a chart
   
 ```/api/genres``` is the one with the delete and get method for retrieving and deleting genres
 
@@ -81,6 +64,33 @@ These tests are used to make sure there are no errors and the server is running 
 
 ## Server Application API Methods
 
+/api/movies
+
+  ```GET:```  returns all records in order by year, score, and gross in descending order
+              
+  ```POST:``` adds or edits a movie based on req.body form input from addfilm.html
+              if req.body has a valid film_id then it will update the rows with the new data.
+              If req.body doesn't pass in a film_id then it will add a new record to db.Films with the new data
+              
+ /api/movies/sorted
+ 
+  ```GET:```  returns a json object with all the records in db.Film sorted by only the year
+  
+ /api/movies/genres/:genre
+  
+  ```GET:```  returns a json object with films matching the passed in {genre} name. IE. /movies/genres/Adventure would return all Adventure movies as a json.
+              May not work with non predetermined genres other than those in the genre array found in the method.
+
+/api/movies/:filmID
+
+  ```GET:```  returns a json object of an individual film matching film_id {filmId}
+  
+  ```DELETE:```  Deletes a row from db.Film matching film_id {filmId} and sends a message and or status on failure
+  
+/api/chart
+
+  ```GET:```  uses ChartJSImage to generate a new png of the genre count in db.Film and returns a json array of the exact count of each genre.
+  
 Genre:
 The .get method for /api/genre would get the genre that is selected.
 
@@ -98,6 +108,7 @@ GET returns a writer at a specific ID
 DELETE removes an entry of a writer
 
 PUT adds a new writer entry
+
 
 
 ## Dependencies
