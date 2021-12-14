@@ -192,7 +192,7 @@ a:hover {
     flex-direction: row;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-color: #161541;
+    background-color: #282a54;
     border-radius: 5px;
     border: 10px solid #144552;
     height:calc(fit-content*2);
@@ -409,6 +409,7 @@ h2 {
         top: 8vh;
         background-color: #714e73;
         border-radius: 15px 0 0 15px;
+        border: solid black 3px;
         display: flex;
         flex-direction: column;
         align-items: center;
