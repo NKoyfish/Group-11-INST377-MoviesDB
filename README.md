@@ -71,15 +71,15 @@ When searching for any movie, the user will go through a long process to find th
 
   ```GET:```  uses ChartJSImage to generate a new png of the genre count in db.Film and returns a json array of the exact count of each genre.
   
-/api/genres is the one with the delete and post method for adding and deleting genres
+```/api/genres``` is the one with the delete and post method for adding and deleting genres
 
-/api/genre retrieves one genre
+```/api/genre``` retrieves one genre
 
-/api/writer is the writer in making the movies
+```/api/writer``` is the writer in making the movies
 
-/api/writers is the the responsibility of multiple writers making the movie
+```/api/writers``` is the the responsibility of multiple writers making the movie
 
-/api/actor is the actor in the movie
+```/api/actor``` is the actor in the movie
 
 
 ## Server Application API Methods
