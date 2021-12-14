@@ -110,5 +110,4 @@ PUT adds a new writer entry
 * Adding more functions to make all posters appear and clean up the bugs.
 * Display more info not just on the movie but for actors, and more descriptions.
 * Display reviews for all movies
-* 
-*
+
