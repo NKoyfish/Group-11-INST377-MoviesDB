@@ -194,7 +194,7 @@ a:hover {
     overflow-x: hidden;
     background-color: #161541;
     border-radius: 5px;
-    border: 10px solid #006466;
+    border: 10px solid #144552;
     height:calc(fit-content*2);
     width: 90%;
     margin-top: 2rem;
@@ -357,12 +357,12 @@ li {
 .clickable a {
     cursor: pointer;
     width: 100%;
-    color:black;
+    color:rgb(226, 226, 226);
     text-align: center;
 }
 .clickable {
   
-    background-color: white;
+    background-color: #4d194d;
     border: solid black 3px;
 }
 h2 {
