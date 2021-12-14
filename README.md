@@ -107,3 +107,8 @@ PUT adds a new writer entry
 chartjs-to-image
 
 npm install chartjs-to-image
+
+## Known Bugs
+• Some of the posters on the movies database doesn't show up.
+
+• The entry ID appears instead of actual movie data in some cases.
