@@ -1,8 +1,7 @@
 # Movie Database Project
 
 ## Description
-When searching for any movie, the user will go through a long process to find the move they want. To fix this,
-the usage of this database will help the user find the movie they like and it will be faster and more reliable.
+When searching for any movie, the user will go through a long process to find the move they want. To fix this, the usage of this database will help the user find the movie they like and it will be faster and more reliable. Our database has a tab for showing a specific genre to choose and the user can select from the buttons any genre they like and the movies will appear in that genre selected.
 
 
 ## Link to Project Website
