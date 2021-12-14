@@ -35,6 +35,7 @@ When searching for any movie, the user will go through a long process to find th
 * Open two terminals and have to be in the main project repository
 * Type ```npm start``` in first terminal and run it
 * Type ```npm test``` in second terminal and run it
+
 These tests are used to make sure there are no errors and the server is running properly.
 
 ## Server Application APIs
