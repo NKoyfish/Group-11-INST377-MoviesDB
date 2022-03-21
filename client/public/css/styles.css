@@ -138,8 +138,9 @@ nav {
 }
 .filmblock a {
     align-self: flex-end;
-    color:white;
+    color: white;
     width: 100%;
+    background: #03040461;
 }
 .columns {
     align-self: center;
@@ -430,10 +431,11 @@ h2 {
         position: absolute;
         font-weight: bold;
         color: white;
+        min-width:fit-content;
         right: 0px;
         height: 92vh;
         top: 8vh;
-        background-color: #714e73;
+        background-color: #4f4678;
         border-radius: 15px 0 0 15px;
         border: solid black 3px;
         display: flex;
@@ -445,6 +447,7 @@ h2 {
     }
     .nav-links li {
         opacity: 0;
+        box-shadow:0px 0px 0px 1rem #000000;
     }
     .burger {
         cursor: pointer;
