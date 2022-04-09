@@ -3,8 +3,8 @@ export default {
   development: {
     username: "ubuntu",
     password: "Veracrypt@12!",
-    database: "Group11Movies",
-    host: "18.212.135.23",
+    database: "TestDB",
+    host: "174.129.198.86",
     dialect: "mysql",
     define: {
       timestamps: false,
@@ -13,8 +13,8 @@ export default {
   test: {
     username: "ubuntu",
     password: "Veracrypt@12!",
-    database: "Group11Movies",
-    host: "18.212.135.23",
+    database: "TestDB",
+    host: "174.129.198.86",
     dialect: "mysql",
     define: {
       timestamps: false,
@@ -23,8 +23,8 @@ export default {
   production: {
     username: "ubuntu",
     password: "Veracrypt@12!",
-    database: "Group11Movies",
-    host: "18.212.135.23",
+    database: "TestDB",
+    host: "174.129.198.86",
     dialect: "mysql",
     define: {
       timestamps: false,
