@@ -1,24 +1,24 @@
 async function loadGenres() {
   // wikipedia stuff
   async function loadSnippet(text) {
-    const span = document.querySelector('.wikireplace');
+    const span = document.querySelector(".wikireplace");
     span.innerHTML = text;
   }
 
   async function filmlookup(event) {
     event.preventDefault();
-    console.log('event', event.target.innerText);
+    console.log("event", event.target.innerText);
     searchQuery = `${event.target.innerText}(Film)`;
     try {
       const results = await searchWikipedia(searchQuery);
       console.log(results);
       await loadSnippet(results[0].snippet);
-      console.log('image results');
+      console.log("image results");
       const imageSearch = grabImageFromPage(results);
       // const fullurl = getFullImageUrl(imageSearch);
     } catch (err) {
       console.log(err);
-      console.log('Failed to search wikipedia');
+      console.log("Failed to search wikipedia");
     }
   }
 
@@ -29,15 +29,15 @@ async function loadGenres() {
       throw Error(response.statusText);
     }
     const json = await response.json();
-    console.log('idk', json);
+    console.log("idk", json);
     const pageid = json.query.search;
     console.log(pageid);
     return pageid;
   }
   async function grabImageFromPage(pageid) {
-    posterframe = document.querySelector('.posterframe');
+    posterframe = document.querySelector(".posterframe");
     const foundPageID = pageid[0].pageid;
-    console.log('pageid:', foundPageID);
+    console.log("pageid:", foundPageID);
     const endpoint = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=images&pageids=${foundPageID}&imlimit=20`;
     const endpoint2 = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=pageimages&iwurl=1&pageids=${foundPageID}&generator=images&piprop=original`;
     const response = await fetch(endpoint2);
@@ -48,14 +48,14 @@ async function loadGenres() {
     const json = await response.json();
     console.log(json);
     if (
-      json !== undefined
-        && json.query !== undefined
-        && json.query.pages !== undefined
+      json !== undefined &&
+      json.query !== undefined &&
+      json.query.pages !== undefined
     ) {
       Object.keys(json.query.pages).forEach((id) => {
         if (id > 0) {
           const title = String(json.query.pages[id].title);
-          if (!title.includes('.svg')) {
+          if (!title.includes(".svg")) {
             console.log(json);
             posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
           }
@@ -67,9 +67,9 @@ async function loadGenres() {
   }
 
   async function loadPosterFrame(pageid) {
-    posterframe = document.querySelector('#id');
+    posterframe = document.querySelector("#id");
     const foundPageID = pageid[0].pageid;
-    console.log('pageid:', foundPageID);
+    console.log("pageid:", foundPageID);
     const endpoint2 = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=pageimages&iwurl=1&pageids=${foundPageID}&generator=images&piprop=original`;
     const response = await fetch(endpoint2);
     if (!response.ok) {
@@ -79,14 +79,14 @@ async function loadGenres() {
     const json = await response.json();
     console.log(json);
     if (
-      json !== undefined
-        && json.query !== undefined
-        && json.query.pages !== undefined
+      json !== undefined &&
+      json.query !== undefined &&
+      json.query.pages !== undefined
     ) {
       Object.keys(json.query.pages).forEach((id) => {
         if (id > 0) {
           const title = String(json.query.pages[id].title);
-          if (!title.includes('.svg')) {
+          if (!title.includes(".svg")) {
             console.log(json);
             posterframe.innerHTML = `<img src=${json.query.pages[id].original.source}>`;
           }
@@ -97,21 +97,21 @@ async function loadGenres() {
     // this gets the image file name of the poster
   }
   let page = 0;
-  const allData = await fetch('/api/movies', {
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
+  const allData = await fetch("/api/movies", {
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
   });
   logData = await allData.json();
   let filterData = logData;
 
   // function for when user clicks on a poster/poster text
   async function initBack() {
-    const result = document.querySelector('.results');
-    document.querySelector('#back').addEventListener('click', () => {
-      result.innerHTML = '';
+    const result = document.querySelector(".results");
+    document.querySelector("#back").addEventListener("click", () => {
+      result.innerHTML = "";
       const slice = filterData.slice(50 * page, 50 * (page + 1));
       if (slice.length === 0) {
-          page--;
-          displayMovieLogs(filterData);
+        page--;
+        displayMovieLogs(filterData);
       }
       slice.forEach((movie) => {
         result.innerHTML += `<li id="${movie.film_id}" class="filmblock"><a>
@@ -122,17 +122,17 @@ async function loadGenres() {
     });
   }
   async function click(id) {
-    console.log(id, 'clicked poster');
+    console.log(id, "clicked poster");
     try {
       const response = await fetch(`/api/movies/${id}`, {
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
       const movie = await response.json();
       const movieData = movie.data;
-      const result = document.querySelector('.results');
+      const result = document.querySelector(".results");
       const html = `<div class='moviestatlist'>
         <div class='infobox'>
           <li><a class='lefttext'>Film Title: </a><a class='righttext'>${movieData.name}</a><br></li>
@@ -170,7 +170,7 @@ async function loadGenres() {
       // attempt to add poster to posterbox here
 
       // attempt over
-      movieElm.addEventListener('click', (event) => {
+      movieElm.addEventListener("click", (event) => {
         if (event.path.length > 7) {
           clickId = event.path[1].attributes[0].nodeValue;
           filmlookup(event);
@@ -179,7 +179,7 @@ async function loadGenres() {
           filmlookup(event);
         }
       });
-      movieElm.addEventListener('click', (event) => {
+      movieElm.addEventListener("click", (event) => {
         // console.log(event);
         // two cases click on text or "poster image"
         if (event.path.length > 7) {
@@ -194,7 +194,7 @@ async function loadGenres() {
   }
 
   async function displayMovieLogs(list) {
-    const result = document.querySelector('.results');
+    const result = document.querySelector(".results");
     if (list) {
       if (page < 0) page = 0;
       if (page > list.length / 50) page = Math.ceil(list.length / 50) - 1;
@@ -214,55 +214,61 @@ async function loadGenres() {
 
   // console logs all records and displays
 
-  const result = document.querySelector('.results');
-  const next = document.querySelector('.next');
-  const prev = document.querySelector('.prev');
-  next.addEventListener('click', () => {
+  const result = document.querySelector(".results");
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".prev");
+  next.addEventListener("click", () => {
     page++;
-    result.innerHTML = '';
+    result.innerHTML = "";
     displayMovieLogs(filterData);
   });
 
-  prev.addEventListener('click', (evt) => {
+  prev.addEventListener("click", (evt) => {
     page--;
-    result.innerHTML = '';
+    result.innerHTML = "";
     displayMovieLogs(filterData);
   });
 
   function findMatches(wordToMatch, array) {
     if (!wordToMatch) {
-      result.innerHTML = '';
+      result.innerHTML = "";
     }
     const tempData = logData.data;
     console.log(tempData);
     return tempData.filter((search) => {
-      const regex = new RegExp(wordToMatch, 'gi');
+      const regex = new RegExp(wordToMatch, "gi");
       return String(search.genre_id).match(wordToMatch);
     });
   }
 
   async function displayMatches(event) {
     // console.log(event.value);
-    console.log('somehow activated')
+    console.log("somehow activated");
     console.log(event.target.outerText);
-    const genreReference = await fetch('/api/genres/&0', {
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
+    const genreReference = await fetch("/api/genres/&0", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
     const genreData = await genreReference.json();
     console.log(genreData);
     searchtarget = genreData.genres[event.target.outerText];
-    console.log('made it here', searchtarget);
+    console.log("made it here", searchtarget);
     const matchArray = findMatches(searchtarget, logData.data);
     filterData = matchArray;
     displayMovieLogs(filterData);
   }
-  document.querySelectorAll('.column').forEach(col=> {col.addEventListener('click', (evt) => {
-    console.log('clicked column');
-    result.innerHTML = ''
-    page = 0
-    displayMatches(evt);
-  })
+  document.querySelectorAll(".column").forEach((col) => {
+    col.addEventListener("click", (evt) => {
+      console.log("clicked column");
+      result.innerHTML = "";
+      page = 0;
+      displayMatches(evt);
+    });
   });
+  filterData = filterData.data;
+  displayMovieLogs(filterData);
 }
 
 window.onload = loadGenres;
